@@ -12,10 +12,19 @@ public class HangmanApp{
         boolean doYouWanttoPlay = true;
         while doYouWanttoPlay {
             // Setting up the game
-        }
-            while (!gameOver){
-                // playing the game
+            System.out.println("Alright lets play!");
+            Hangman game = new Hangman();
+
+            do {
+                // Draw the things
+                System.out.println();
+                System.out.println(gamedrawPicture);
+                System.out.println();
+                System.out.println(game.getFormalCurrentGuess());
+                System.out.println(game.mystreyWord);
             }
+            while (!game.gameOver());
+            
 
             // Play again or no
             System.out.println(""); 

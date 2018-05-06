@@ -59,6 +59,10 @@ public class Hangman{
     }
 
 
+public String getFormalCurrentGuess() {
+    return "Current Guess: " + currentGuess.toString(); 
+}
+
     // "" _ _ _ _ _\n"+
     // "|          |\n"+
     // "|          0\n" +
@@ -73,33 +77,89 @@ public class Hangman{
         switch(currentTry) {
             case 0: return noPersonDraw();
             case 1: return addHeadDraw();
+            case 2: return addBodyDraw();
+            case 3: return addOneArmDraw();
+            case 4: return addFirstLegDraw();
+            default: return addFullPerson();
         }
     }
 
 	private String noPersonDraw() {
-      return      "" _ _ _ _ _ \n"+
-                 "|            \n"+
+      return     "" _ _ _ _ _\n"+
+                 "|          |\n"+
                  "|          \n" +
-                 "|          \ \n"+
+                 "|          \n"+
                  "|          \n"  +
                  "|           \n" +
-                 "|\n"+
-                 "|\n"; 
+                 "|\n" +
+                 "|\n";
     }
 
     private String addHeadDraw() {
-        return  "" _ _ _ _ \n"+
+        return   "" _ _ _ _ _\n"+
                 "|        |\n"+
                 "|        0\n" +
-                "|          \ \n"+
+                "|           \n"+
                 "|          \n"  +
                 "|           \n" +
-                "|\n"+
-                "|\n"; ;
-	}
-    
+                "|\n" +
+                "|\n"; 
+    }
+
+    private String addBodyDraw() {
+        return   "" _ _ _ _ _\n"+
+                "|        |\n"+
+                "|        0\n" +
+                "|        |  \n"+
+                "|        |\n"  +
+                "|          \n" +
+                "|\n" +
+                "|\n"; 
+        
+    }
+
+    private String addOneArmDraw() {
+            return  "" _ _ _ _ _\n"+
+                    "|        |\n"+
+                    "|        0\n" +
+                    "|        |\ \n"+
+                    "|        |\n"  +
+                    "|          \n" +
+                    "|\n" +
+                    "|\n"; 
+    }
 
 
+	private String addSecondArmDraw() {
+            return  "" _ _ _ _ _\n"+
+                    "|        |\n"+
+                    "|        0\n" +
+                    "|       /|\ \n"+
+                    "|        |\n"  +
+                    "|          \n" +
+                    "|\n" +
+                    "|\n"; 	
+    }
 
+    private String addFirstLegDraw() {
+        return  "" _ _ _ _ _\n"+
+                    "|        |\n"+
+                    "|        0\n" +
+                    "|       /|\ \n"+
+                    "|        |\n"  +
+                    "|       /  \n" +
+                    "|\n" +
+                    "|\n"; 	 
+    }
 
+    private String addFullPerson() {
+return  "" _ _ _ _ _\n"+
+        "|          |\n"+
+        "|          0\n" +
+        "|         /|\ \n"+
+        "|          |\n"  +
+        "|         / \ \n" +
+        "|\n" +
+        "|\n"; 	 
+    }
 }
