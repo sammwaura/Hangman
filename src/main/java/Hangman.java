@@ -1,165 +1,74 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+    import java.lang.IllegalArgumentException; 
+    import java.util.ArrayList;
+    import java.util.Scanner;
 
-public class Hangman{
-        
-    String mystreyword;
-    StringBuilder currentGuess;
-    ArrayList<Character> previousGuesses = new ArrayList<>();
 
-    int maxTries = 6;
-    int currentTry = 0;
+    public class Hangman {
 
-    ArrayList<String> dictionary = new ArrayList<>();
-    private static FileReader fileReader;
-    private static BufferedReader bufferedReader;
+        private String word;
+        private Integer life;
+      
 
-    public Hangman() throws IOException {
-        initializeStream ();
-        mystreyword = pickWord();
-        currentGuess = initializeCurrentGuess();
-    }
-    public void initializeStream () throws IOException{
-        try{
-            File inFile = new File("dictionary.txt");
-            fileReader = new FileReader(fileReader);
-            bufferedFileReader = new BufferedReader(bufferedReader);
-            String currentLIne =  bufferedFileReader.readLine();
-            while (currentLine != null) {
-                dictionary.add(currentLine);
+    static public void guess(String word, int life) {
+
+        char[] filler = new char[word.length()];
+        int i=0;
+        while(i< word.length()) {
+            filler[i]='_';
+            if(word.charAt(i)=='_'){
+                filler[i]='_';
             }
-            bufferedFileReader.close();
-            fileReader.close();
-        } catch (IOException e) {
-            System.out.println("Could not init streams");
-        }  
+            i++;
         }
+        System.out.println(filler);
+        System.out.println("Life remaining=" + life);
 
-        public String pickWord() {
-            Random rand = new Random();
-            int wordIndex = Math.abs(rand.nextInt()) % dictionary.size();
-            return dictionary.get(wordIndex);
-        }
-         
-        // _ A _ _ _ _ _
+        Scanner scanner = new Scanner(System.in); // to read characters
 
+        ArrayList<Character> l=new ArrayList<Character>();
 
-        public StringBuilder initializeCurrentGuess() {
-            StringBuilder current = new StringBuilder();
-            for (int i=0; i < mystreyword.length() *2; i++) {
-                if (i % 2 == 0) {
-                    current.append("_");
-             } else {
-                current.append("");
+        while(life>0){
+            char x=scanner.next().charAt(0);  // character input by the user
+
+            if(l.contains(x)) {
+                System.out.println("Already entered");
+                continue;                      // while loop continues
             }
+
+            l.add(x);
+
+            if(word.contains(x+"")) {
+                for(int y=0;y<word.length();y++){   //this loop will check all indexes for
+                    if(word.charAt(y)==x) {         //the character and will replace '_' by
+                        filler[y]=x;                // the character
+                    }
+                }
+            }
+            else {
+                life--;                              //life decreases if the character entered  isn't there in  word
+            }
+
+            if(word.equals(String.valueOf(filler))) {       //checking filler equals word
+                System.out.println(filler);
+                System.out.println("You won!!!");
+                break;
+            }
+
+            System.out.println(filler);
+            System.out.println("Life remaining=" + life);
         }
-        return current;
+            if(life==0) {
+                System.out.println("You lose!");
+            }
+
     }
 
 
-public String getFormalCurrentGuess() {
-    return "Current Guess: " + currentGuess.toString(); 
-}
+    public static void  main(String[] args) {
 
-    // "" _ _ _ _ _\n"+
-    // "|          |\n"+
-    // "|          0\n" +
-    // "|         /| \\ \n"+
-    // "|          |\n"  +
-    // "|         / \\  \n" +
-    // "|\n"+
-    // "|\n";
-    
-
-    public String drawPicture() {
-        switch(currentTry) {
-            case 0: return noPersonDraw();
-            case 1: return addHeadDraw();
-            case 2: return addBodyDraw();
-            case 3: return addOneArmDraw();
-            case 4: return addFirstLegDraw();
-            default: return addFullPerson();
-        }
-    }
-
-	private String noPersonDraw() {
-      return     "" _ _ _ _ _\n"+
-                 "|          |\n"+
-                 "|          \n" +
-                 "|          \n"+
-                 "|          \n"  +
-                 "|           \n" +
-                 "|\n" +
-                 "|\n";
-    }
-
-    private String addHeadDraw() {
-        return   "" _ _ _ _ _\n"+
-                "|        |\n"+
-                "|        0\n" +
-                "|           \n"+
-                "|          \n"  +
-                "|           \n" +
-                "|\n" +
-                "|\n"; 
-    }
-
-    private String addBodyDraw() {
-        return   "" _ _ _ _ _\n"+
-                "|        |\n"+
-                "|        0\n" +
-                "|        |  \n"+
-                "|        |\n"  +
-                "|          \n" +
-                "|\n" +
-                "|\n"; 
-        
-    }
-
-    private String addOneArmDraw() {
-            return  "" _ _ _ _ _\n"+
-                    "|        |\n"+
-                    "|        0\n" +
-                    "|        |\ \n"+
-                    "|        |\n"  +
-                    "|          \n" +
-                    "|\n" +
-                    "|\n"; 
-    }
-
-
-	private String addSecondArmDraw() {
-            return  "" _ _ _ _ _\n"+
-                    "|        |\n"+
-                    "|        0\n" +
-                    "|       /|\ \n"+
-                    "|        |\n"  +
-                    "|          \n" +
-                    "|\n" +
-                    "|\n"; 	
-    }
-
-    private String addFirstLegDraw() {
-        return  "" _ _ _ _ _\n"+
-                    "|        |\n"+
-                    "|        0\n" +
-                    "|       /|\ \n"+
-                    "|        |\n"  +
-                    "|       /  \n" +
-                    "|\n" +
-                    "|\n"; 	 
-    }
-
-    private String addFullPerson() {
-return  "" _ _ _ _ _\n"+
-        "|          |\n"+
-        "|          0\n" +
-        "|         /|\ \n"+
-        "|          |\n"  +
-        "|         / \ \n" +
-        "|\n" +
-        "|\n"; 	 
+        String word="welcome to my hangman game"; //word to be guessed
+        int life=5; //number of chances 
+        guess(word,life);
     }
 }
+   
