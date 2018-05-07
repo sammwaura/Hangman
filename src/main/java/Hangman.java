@@ -1,15 +1,11 @@
-    import java.lang.IllegalArgumentException; 
     import java.util.ArrayList;
     import java.util.Scanner;
 
 
     public class Hangman {
 
-        private String word;
-        private Integer life;
-      
-
-    static public void guess(String word, int life) {
+        
+       static public void guess(String word, int life) {
 
         char[] filler = new char[word.length()];
         int i=0;
@@ -26,6 +22,7 @@
         Scanner scanner = new Scanner(System.in); // to read characters
 
         ArrayList<Character> l=new ArrayList<Character>();
+        ArrayList<String> dictionary = new ArrayList<>();
 
         while(life>0){
             char x=scanner.next().charAt(0);  // character input by the user

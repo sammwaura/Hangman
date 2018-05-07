@@ -15,21 +15,23 @@ public class TestHangman{
             }
 
             @Test(expected = IllegalArgumentException.class)
-            public void testDoesNotInstantiateWithNUmbers() {
+            public void testDoesNotInstantiateWithNumbers() {
                 Hangman game = new Hangman("apple-6");
 
             }
 
-            @Test public void testCanGetWord() {
-                Hangman game = new Hangman("apple");
-                String expected = "";
-                assertEquals(expected,hangman.getWord());
+            @Test public void testCanGetInputCharacter() {
+                Hangman game = new Hangman("a");
+                String expected = "a";
+                assertEquals(expected,hangman.testCanGetInputCharacter());
             }
 
-            @Test public void testCanSetWord() {
+            @Test public void testCanGetIndexes() {
                 Hangman game = new Hangman();
-                hangman.setWord("");
-                String expected = "";
-                assertEquals(expected,hangman.getWord());
+                hangman.setWord("_");
+                String expected = "_";
+                assertEquals(expected,hangman.getIndexes());
             }
+             
+    
 }
