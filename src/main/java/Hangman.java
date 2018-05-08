@@ -1,71 +1,76 @@
-    import java.util.ArrayList;
+
+    import java.util.Random;
     import java.util.Scanner;
 
 
     public class Hangman {
+        public static void main (String[] args) { 
+            Scanner scanner = new Scanner(System.in); // to read character
+            Random random = new Random();
+            String[] guess ={"Ronaldo", "Hazard", "Messi"};          
 
-        
-       static public void guess(String word, int life) {
+         boolean weArePlaying = true;
+            while (weArePlaying) {
+            System.out.println("Yo!Welcome to my hangman game!"); // Ronaldo -> R,o,n,a,l,d,o
+            char[]  randomWordToGuess = guess[random.nextInt(guess.length)].toCharArray();
+            int amountofGuess = randomWordToGuess.length; //9
+            char[] playerGuess = new char[amountofGuess]; 
 
-        char[] filler = new char[word.length()];
-        int i=0;
-        while(i< word.length()) {
-            filler[i]='_';
-            if(word.charAt(i)=='_'){
-                filler[i]='_';
-            }
-            i++;
-        }
-        System.out.println(filler);
-        System.out.println("Life remaining=" + life);
+            for (int i=0; i< playerGuess.length; i++); {
+                playerGuess[i] = '_';
 
-        Scanner scanner = new Scanner(System.in); // to read characters
-
-        ArrayList<Character> l=new ArrayList<Character>();
-        ArrayList<String> dictionary = new ArrayList<>();
-
-        while(life>0){
-            char x=scanner.next().charAt(0);  // character input by the user
-
-            if(l.contains(x)) {
-                System.out.println("Already entered");
-                continue;                      // while loop continues
             }
 
-            l.add(x);
+            boolean wordIsGuessed = false;
+            int tries = 0;
 
-            if(word.contains(x+"")) {
-                for(int y=0;y<word.length();y++){   //this loop will check all indexes for
-                    if(word.charAt(y)==x) {         //the character and will replace '_' by
-                        filler[y]=x;                // the character
+            while (!wordIsGuessed && tries !=amountofGuess) {
+                System.out.print("CurrentGuess: ");
+                printArray(playerGuess);
+                System.out.printf("You have %d tries left.\n", amountofGuess - tries);
+                System.out.println("Enter a single character ");
+                char input = scanner.nextLine().charAt(0);
+                tries++;
+                
+                if (input == '-') {
+                    weArePlaying = false;
+                    wordIsGuessed = true;
+                } else {
+                          for (int i=0; i< randomWordToGuess.length; i++); {
+                            if (randomWordToGuess[i] == input) {
+                                playerGuess[i] = input;
+                            }
+                        }
+
+                        if (isTheWordGuessed(playerGuess)) {
+                            wordIsGuessed = true;
+                            System.out.println("Congratulations you won!");
+                        }
                     }
-                }
             }
-            else {
-                life--;                              //life decreases if the character entered  isn't there in  word
-            }
+            if (!wordIsGuessed) System.out.println("You ran out of guess: /");
+            System.out.println("Do you want to play another game?(yes/no)");
+            String anotherGame = scanner.nextLine();
+            if (anotherGame.equals("no")) weArePlaying = false;
 
-            if(word.equals(String.valueOf(filler))) {       //checking filler equals word
-                System.out.println(filler);
-                System.out.println("You won!!!");
-                break;
-            }
 
-            System.out.println(filler);
-            System.out.println("Life remaining=" + life);
+        } 
+                        
+        System.out.println("Game Over!");
+
+        public static void printArray(char[] array) {
+            for (int i =0; i < array.length; i++) {
+                System.out.print(array[i] + "");
+            }
+            System.out.println();
         }
-            if(life==0) {
-                System.out.println("You lose!");
+
+        public static boolean isTheWordGuessed(char[] array) {
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] == '_') return false;
             }
-
-    }
-
-
-    public static void  main(String[] args) {
-
-        String word="welcome to my hangman game"; //word to be guessed
-        int life=5; //number of chances 
-        guess(word,life);
+            return true;
+        }
     }
 }
    
