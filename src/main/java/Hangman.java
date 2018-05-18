@@ -7,7 +7,8 @@
         public static void main (String[] args) { 
             Scanner scanner = new Scanner(System.in); // to read character
             Random random = new Random();
-            String[] guess ={"Ronaldo", "Hazard", "Messi"};          
+            String[] guess ={"Ronaldo", "Hazard", "Messi"};  
+                    
 
          boolean weArePlaying = true;
             while (weArePlaying) {
@@ -58,7 +59,7 @@
                         
         System.out.println("Game Over!");
 
-        public static void printArray(char[] array) {
+        public static final [char printArray(char[] array) {
             for (int i =0; i < array.length; i++) {
                 System.out.print(array[i] + "");
             }
